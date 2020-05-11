@@ -13,3 +13,8 @@ class ModelTests(TestCase):
         )
         self.assertEqual(user.email, email)
         self.assertTrue(user.check_password(password))
+
+    def test_user_email_domain_is_case_insensitive(self):
+        email = "user@DOMAIN.COM"
+        user = get_user_model().objects.create_user(email, "Test123")
+        self.assertEqual(user.email, email.lower())
